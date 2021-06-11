@@ -1,4 +1,4 @@
-package com.example.countrylistapi.view
+package com.example.countrylistapi.view.viewmodel
 
 import com.example.countrylistapi.data.model.Country
 

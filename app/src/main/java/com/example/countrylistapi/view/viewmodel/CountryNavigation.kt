@@ -1,4 +1,4 @@
-package com.example.countrylistapi.view
+package com.example.countrylistapi.view.viewmodel
 
 import android.content.Context
 import androidx.compose.runtime.Composable

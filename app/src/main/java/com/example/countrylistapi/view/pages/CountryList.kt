@@ -18,13 +18,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.countrylistapi.data.model.Country
-import com.example.countrylistapi.view.CountryState
-import com.example.countrylistapi.view.CountryViewModel
+import com.example.countrylistapi.view.viewmodel.CountryState
+import com.example.countrylistapi.view.viewmodel.CountryViewModel
 import com.example.countrylistapi.view.widget.FlagImage
 import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
-fun ListScreen(controller : NavController, countryViewModel: CountryViewModel= viewModel(), applicationContext : Context){
+fun ListScreen(controller : NavController, countryViewModel: CountryViewModel = viewModel(), applicationContext : Context){
     Log.d("testing","list screen")
     Scaffold(
         topBar = {
@@ -33,12 +33,12 @@ fun ListScreen(controller : NavController, countryViewModel: CountryViewModel= v
                     modifier = Modifier.fillMaxWidth(),textAlign = TextAlign.Center)
             })
         },
-        content = { CountryList( countryViewModel,applicationContext,controller) }
+        content = { CountryList(countryViewModel, controller) }
     )
 
 }
 @Composable
-fun CountryList(countryViewModel: CountryViewModel = viewModel(), context : Context,controller: NavController){
+fun CountryList(countryViewModel: CountryViewModel = viewModel(), controller: NavController){
     Log.d("testing","observe")
     val state  = countryViewModel.countryState.collectAsState().value
     when(state){
@@ -50,13 +50,13 @@ fun CountryList(countryViewModel: CountryViewModel = viewModel(), context : Cont
         }
         is CountryState.CountrySuccess -> {
             LazyColumn() {
-                itemsIndexed((state as CountryState.CountrySuccess).countryList){
+                itemsIndexed(state.countryList){
                         _, item ->
                     Item(item, controller)
                 }
             }
         }
-        is CountryState.CountryFail -> Text((state as CountryState.CountryFail).error)
+        is CountryState.CountryFail -> Text(state.error)
     }
 
 
